@@ -12,9 +12,11 @@ import deepFreeze from 'deep-freeze';
  *   }
  *   form: {
  *     user_name: "",
- *     password: "",
+ *     title: "",
  *     description: "",
- *     token: "",
+ *     finished: false, // default
+ *     used_time: 0, // default
+ *     token: "", // BTW no use.
  *   }
  *   token: token/null
  * }
@@ -43,8 +45,10 @@ function users(state = [], action) {
 
 let empty_form = {
   user_id: "",
-  body: "",
-  token: "",
+  finished: false, // default
+  used_time: 0, // default
+  description: "",
+  title: "",
 };
 
 function form(state = empty_form, action) {
@@ -55,8 +59,8 @@ function form(state = empty_form, action) {
       return empty_form;
     case 'SET_TOKEN':
       return Object.assign({}, state, action.token);
-      case 'CLEAR_TOKEN':
-        return empty_form;
+    case 'CLEAR_TOKEN':
+      return empty_form;
     default:
       return state;
   }
@@ -68,7 +72,7 @@ function token(state = null, action) {
     case 'SET_TOKEN':
       return action.token;
     case 'CLEAR_TOKEN':
-      return null
+      return null;
     default:
       return state;
   }

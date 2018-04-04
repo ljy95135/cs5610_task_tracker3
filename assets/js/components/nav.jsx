@@ -56,7 +56,7 @@ function Nav(props) {
     session_info = <Session token={props.token} />;
   }
   else {
-    session_info = <LoginForm />
+    session_info = <LoginForm />;
   }
 
   return (

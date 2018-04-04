@@ -18,7 +18,7 @@ defmodule TaskTracker3.Posts do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Repo.all(Post) |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +35,9 @@ defmodule TaskTracker3.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    Repo.get!(Post, id) |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a post.
@@ -50,9 +52,12 @@ defmodule TaskTracker3.Posts do
 
   """
   def create_post(attrs \\ %{}) do
-    %Post{}
-    |> Post.changeset(attrs)
-    |> Repo.insert()
+    {:ok, post} =
+      %Post{}
+      |> Post.changeset(attrs)
+      |> Repo.insert()
+
+    {:ok, Repo.preload(post, :user)}
   end
 
   @doc """

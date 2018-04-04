@@ -30,12 +30,22 @@ class TheServer {
   }
 
   submit_post(data) {
+    data = {
+      title: data.title,
+      description: data.description,
+      finished: data.finished,
+      user_id: data.user_id,
+      used_time: data.used_time,
+    }
     $.ajax("/api/v1/posts", {
       method: "post",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({ token: data.token, post: data }),
+      data: JSON.stringify({ post: data }),
       success: (resp) => {
+        store.dispatch({
+          type: 'CLEAR_FORM',
+        });
         store.dispatch({
           type: 'ADD_POST',
           post: resp.data,
