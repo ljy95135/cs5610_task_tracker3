@@ -4,6 +4,7 @@ import deepFreeze from 'deep-freeze';
 /*
  *  state layout:
  *  {
+ *   finish_work: {post_id:-1, used_time:0}
  *   posts: [... Posts ...],
  *   users: [... Users ...],
  *   register_form: {
@@ -108,11 +109,29 @@ function register_form(state = empty_register_form, action) {
   }
 }
 
+let finish_work_form ={
+  post_id:-1,
+  used_time:0,
+}
+
+function finish_work(state = finish_work_form, action) {
+  switch (action.type) {
+    case 'UPDATE_POST_ID':
+      return Object.assign({}, state, action.data);
+    case 'FINISH_WORK':
+      return Object.assign({}, state, action.data);
+    case 'INIT_FINISH_WORK':
+      return finish_work;
+    default:
+      return state;
+  }
+}
+
 function root_reducer(state0, action) {
   console.log("reducer", action);
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
-  let reducer = combineReducers({posts, users, form, token, login, register_form});
+  let reducer = combineReducers({posts, users, form, token, login, register_form, finish_work});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

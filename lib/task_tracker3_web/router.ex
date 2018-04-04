@@ -19,6 +19,7 @@ defmodule TaskTracker3Web.Router do
 
     get("/", PageController, :index)
     get("/register", PageController, :index)
+    get("/tasks/:id", PageController, :index)
   end
 
   scope "/api/v1", TaskTracker3Web do

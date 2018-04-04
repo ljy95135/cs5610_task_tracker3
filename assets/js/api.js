@@ -29,6 +29,22 @@ class TheServer {
     });
   }
 
+  update_post(post_id, data){
+    $.ajax("/api/v1/posts/" + post_id, {
+      method: "patch",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ post: data }),
+      success: (resp) => {
+        alert("This work is done! Go to index to see it!")
+        console.log(resp)
+      },
+      error: (resp) => {
+        console.log("Wrong!", resp)
+      },
+    });
+  }
+
   submit_post(data) {
     data = {
       title: data.title,
@@ -52,6 +68,15 @@ class TheServer {
         });
       },
     });
+  }
+
+  update_finishing_work(post_id){
+    // console.log("ok 1");
+    store.dispatch({
+      type: 'UPDATE_POST_ID',
+      data: {post_id: post_id},
+    });
+    // console.log("ok 2");
   }
 
   submit_register(data) {

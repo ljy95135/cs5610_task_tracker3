@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Nav from './nav';
 import Register from './register';
 import PostForm from './post_form';
+import Feed from './feed';
+import FinishWork from './finish_work';
+import api from '../api';
 
 export default function task_tracker_init(store) {
   ReactDOM.render(
@@ -23,6 +26,8 @@ function state2props(state) {
 }
 
 let TaskTracker = connect(state2props)((props) => {
+  // console.log("posts", props.state.posts);
+
   return (
     <Router>
       <div>
@@ -32,6 +37,12 @@ let TaskTracker = connect(state2props)((props) => {
               return (
                 <div>
                   <PostForm />
+                  <h2>Here are your tasks.</h2>
+                  <Feed posts={_.filter(props.state.posts, (pp) => {
+                    return props.state.token.user_id == pp.user.id &&
+                    (!pp.finished)
+                  })} />
+
                 </div>
               );
             }
@@ -42,6 +53,10 @@ let TaskTracker = connect(state2props)((props) => {
         } />
         <Route path="/register" exact={true} render={() =>
           <Register />
+        } />
+        <Route path="/tasks/:task_id" render={({match}) => {
+            return <FinishWork />;
+          }
         } />
       </div>
     </Router>

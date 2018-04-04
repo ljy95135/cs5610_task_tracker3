@@ -1,10 +1,10 @@
 defmodule TaskTracker3Web.PostController do
   use TaskTracker3Web, :controller
-
+  require Logger
   alias TaskTracker3.Posts
   alias TaskTracker3.Posts.Post
 
-  action_fallback TaskTracker3Web.FallbackController
+  action_fallback(TaskTracker3Web.FallbackController)
 
   def index(conn, _params) do
     posts = Posts.list_posts()
@@ -26,6 +26,7 @@ defmodule TaskTracker3Web.PostController do
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
+    Logger.debug("I am here!")
     post = Posts.get_post!(id)
 
     with {:ok, %Post{} = post} <- Posts.update_post(post, post_params) do
@@ -35,6 +36,7 @@ defmodule TaskTracker3Web.PostController do
 
   def delete(conn, %{"id" => id}) do
     post = Posts.get_post!(id)
+
     with {:ok, %Post{}} <- Posts.delete_post(post) do
       send_resp(conn, :no_content, "")
     end
