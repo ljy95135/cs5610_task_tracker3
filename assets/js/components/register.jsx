@@ -31,7 +31,7 @@ function RegisterForm(props) {
   }
 
   return <div style={{padding: "4ex"}}>
-    <h2>New Post</h2>
+    <h2>Register</h2>
     <FormGroup>
       <Label for="name">User Name</Label>
       <Input type="text" name="name" value={props.register_form.name} onChange={update} />

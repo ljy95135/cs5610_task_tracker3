@@ -55,15 +55,20 @@ function form(state = empty_form, action) {
       return empty_form;
     case 'SET_TOKEN':
       return Object.assign({}, state, action.token);
+      case 'CLEAR_TOKEN':
+        return empty_form;
     default:
       return state;
   }
 }
 
+// {token, user_id}
 function token(state = null, action) {
   switch (action.type) {
     case 'SET_TOKEN':
       return action.token;
+    case 'CLEAR_TOKEN':
+      return null
     default:
       return state;
   }

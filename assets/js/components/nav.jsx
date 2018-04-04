@@ -36,9 +36,17 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 });
 
 let Session = connect(({token}) => {return {token};})((props) => {
-  return <div className="navbar-text">
+  function logout(ev) {
+    props.dispatch({
+      type: 'CLEAR_TOKEN',
+    });
+  }
+
+  return (<div className="navbar-text">
     User id = { props.token.user_id }
-  </div>;
+    <br />
+    <Button onClick={logout}>Log Out</Button>
+  </div>);
 });
 
 function Nav(props) {
