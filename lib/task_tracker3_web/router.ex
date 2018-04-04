@@ -18,6 +18,7 @@ defmodule TaskTracker3Web.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/register", PageController, :index)
   end
 
   scope "/api/v1", TaskTracker3Web do

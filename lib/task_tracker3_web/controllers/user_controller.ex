@@ -3,8 +3,9 @@ defmodule TaskTracker3Web.UserController do
 
   alias TaskTracker3.Users
   alias TaskTracker3.Users.User
+  require Logger
 
-  action_fallback TaskTracker3Web.FallbackController
+  action_fallback(TaskTracker3Web.FallbackController)
 
   def index(conn, _params) do
     users = Users.list_users()
@@ -12,6 +13,9 @@ defmodule TaskTracker3Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    p = Comeonin.Argon2.hashpwsalt(user_params["password"])
+    user_params = %{name: user_params["name"], password_hash: p}
+
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)
@@ -35,6 +39,7 @@ defmodule TaskTracker3Web.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Users.get_user!(id)
+
     with {:ok, %User{}} <- Users.delete_user(user) do
       send_resp(conn, :no_content, "")
     end

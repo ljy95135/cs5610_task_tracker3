@@ -7,6 +7,7 @@ defmodule TaskTracker3.Users do
   alias TaskTracker3.Repo
 
   alias TaskTracker3.Users.User
+  require Logger
 
   @doc """
   Returns the list of users.
@@ -55,6 +56,8 @@ defmodule TaskTracker3.Users do
 
   """
   def create_user(attrs \\ %{}) do
+    # Logger.debug("create_user:", "#{attrs}")
+
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()

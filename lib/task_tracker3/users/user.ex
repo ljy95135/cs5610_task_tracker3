@@ -1,6 +1,7 @@
 defmodule TaskTracker3.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
+  require Logger
 
   schema "users" do
     field(:name, :string)
@@ -13,7 +14,7 @@ defmodule TaskTracker3.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :password])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :password_hash])
+    |> validate_required([:name, :password_hash])
   end
 end
