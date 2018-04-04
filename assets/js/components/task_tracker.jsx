@@ -8,6 +8,7 @@ import Register from './register';
 import PostForm from './post_form';
 import Feed from './feed';
 import FinishWork from './finish_work';
+import WorkHistory from './work_history';
 import api from '../api';
 
 export default function task_tracker_init(store) {
@@ -37,12 +38,16 @@ let TaskTracker = connect(state2props)((props) => {
               return (
                 <div>
                   <PostForm />
-                  <h2>Here are your tasks.</h2>
+                  <h2>Here are your unfinished tasks.</h2>
                   <Feed posts={_.filter(props.state.posts, (pp) => {
                     return props.state.token.user_id == pp.user.id &&
                     (!pp.finished)
                   })} />
-
+                  <h2>Finished tasks.</h2>
+                  <WorkHistory posts={_.filter(props.state.posts, (pp) => {
+                    return props.state.token.user_id == pp.user.id &&
+                    (pp.finished)
+                  })} />
                 </div>
               );
             }

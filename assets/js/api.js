@@ -36,6 +36,12 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({ post: data }),
       success: (resp) => {
+        // update the list
+        this.request_posts();
+        // store.dispatch({
+        //   type: 'POSTS_LIST',
+        //   posts: resp.data,
+        // });
         alert("This work is done! Go to index to see it!")
         console.log(resp)
       },

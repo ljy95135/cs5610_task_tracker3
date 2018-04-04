@@ -1,5 +1,3 @@
-// <p><b>Used time:</b> {Math.floor(post.used_time/60)} hours, {post.used_time%60} minutes</p>
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
